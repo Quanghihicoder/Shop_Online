@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Web Application Development" />
+    <meta name="keywords" content="PHP" />
+    <meta name="author" content="Nhat Quang Hoang - 103579765" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShopOnline</title>
+
+    <link rel="stylesheet" href="./styles/style.css?v=1">
+    <link rel="stylesheet" href="./styles/login.css?v=1">
+    <link rel="stylesheet" href="./styles/responsive.css?v=1">
+
+    <script type="text/javascript" src="./scripts/login.js"></script>
+</head>
+
+<body>
+    <div class="login container">
+        <div class="navigation">
+            <div class="navigation-title-container">
+                <a class="title" href='./'>ShopOnline</a>
+            </div>
+
+            <div class="navigation-bar-container">
+                <a class="nav-link" href='./listing.htm'>Listing</a>
+                <a class="nav-link" href='./bidding.htm'>Bidding</a>
+                <a class="nav-link" href='./maintenance.htm'>Maintenance</a>
+            </div>
+
+            <div class="navigation-account-container">
+                <a class='button-danger' href='./logout.php'>Logout</a>
+            </div>
+            
+        </div>
+
+        <div class="main">
+            <div class="intro-container">
+                <p class='intro-title'>Login to ShopOnline.</p>
+                <p>Welcome back!</p>
+            </div>
+
+            <div class="form-container">
+                <form>
+                    <div class="form-input">
+                        <div class="form-inputfeild">
+                            <label>Email <span class="error">*</span></label>
+                                <input type="text" id="login-form-input-email" name="login-form-input-email" maxlength="320" placeholder="Enter your email address" />
+                            
+                            <span class="error" id="login-form-input-email-error"></span>
+                        </div>
+
+                        <div class="form-inputfeild">
+                            <label>Password <span class="error">*</span></label>
+                            <input type="password" id="login-form-input-password" name="login-form-input-password" maxlength="20" placeholder="Enter your password"  />
+                        
+                            <span class="error" id="login-form-input-password-error"></span>
+                        </div>
+
+                        <div>
+                            <span>New member? </span><a class="normal-link" href='./register.htm'>Register Now</a>
+                        </div>
+                    </div>
+
+                    <div class="form-control">
+                        <input class="button-secondary button-big" id="login-form-submit-button" type="button" value="Login">
+                    </div>
+                </form>
+
+                <script type="text/javascript">
+                    document.getElementById("login-form-submit-button").addEventListener("click", submitForm); 
+                </script>
+            </div>
+        </div>
+    </div>    
+</body>
+
+</html>

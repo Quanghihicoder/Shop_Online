@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Web Application Development" />
+    <meta name="keywords" content="PHP" />
+    <meta name="author" content="Nhat Quang Hoang - 103579765" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShopOnline</title>
+
+    <link rel="stylesheet" href="./styles/style.css?v=1">
+    <link rel="stylesheet" href="./styles/register.css?v=1">
+    <link rel="stylesheet" href="./styles/responsive.css?v=1">
+</head>
+
+<body>
+    <div class="register container">
+        <div class="navigation">
+            <div class="navigation-title-container">
+                <a class="title" href='./'>ShopOnline</a>
+            </div>
+
+            <div class="navigation-bar-container">
+                <a class="nav-link" href='./listing.htm'>Listing</a>
+                <a class="nav-link" href='./bidding.htm'>Bidding</a>
+                <a class="nav-link" href='./maintenance.htm'>Maintenance</a>
+            </div>
+
+            <div class="navigation-account-container">
+                <a class='button-danger' href='./logout.php'>Logout</a>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="intro-container">
+                <p class='intro-title'>Be our new customer.</p>
+                <p>Please fill the fields below to complete your registration!</p>
+            </div>
+
+            <div class="form-container">
+                <!-- <form action="<?php echo htmlspecialchars($_SERVER["REQUEST_URI"]); ?>" method="POST"> -->
+                <form action="" method="POST">
+                    <div class="form-input">
+                        <div class="form-inputfeild">
+                            <label>Name <span class="error">*</span></label>
+                            <input type="text" name="name" maxlength="35" placeholder="Enter your name" value="" required />
+                            <span class="error">
+                                <!-- <?php
+                                if (isset($error["name"])) {
+                                    echo "* " . $error["name"];
+                                }
+                                ?> -->
+                            </span>
+                        </div>
+
+                        <div class="form-inputfeild">
+                            <label>Email <span class="error">*</span></label>
+                            <input type="email" name="email" maxlength="320" placeholder="Enter your email address" value="" required />
+                            <span class="error">
+                                <!-- <?php
+                                if (isset($error["email"])) {
+                                    echo "* " . $error["email"];
+                                }
+                                ?> -->
+                            </span>
+                        </div>
+
+                        <div class="form-inputfeild">
+                            <label>Password <span class="error">*</span></label>
+                            <input type="password" name="pass" maxlength="20" placeholder="Enter a password" required />
+                            <span class="error">
+                                <!-- <?php
+                                if (isset($error["pass"])) {
+                                    echo "* " . $error["pass"];
+                                }
+                                ?> -->
+                            </span>
+                        </div>
+
+                        <div class="form-inputfeild">
+                            <label>Confirm Password <span class="error">*</span></label>
+                            <input type="password" name="repass" maxlength="20" placeholder="Re-enter the password" required />
+                            <span class="error">
+                                <!-- <?php
+                                if (isset($error["repass"])) {
+                                    echo "* " . $error["repass"];
+                                }
+                                ?> -->
+                            </span>
+                        </div>
+
+                        <div class="form-inputfeild">
+                            <label>Phone <span class="error">*</span></label>
+                            <input type="number" name="phone" maxlength="10" placeholder="Enter your phone number" value="" required />
+                            <span class="error">
+                                <!-- <?php
+                                if (isset($error["phone"])) {
+                                    echo "* " . $error["phone"];
+                                }
+                                ?> -->
+                            </span>
+                        </div>
+                        <!-- 
+                        <?php
+                        if ($user_role == 1) {
+                            echo ("
+                                    <div class='form-inputcheckbox'>
+                                        <label>Register an admin</label>
+                                        <input type='checkbox' name='admin' value='1'/>
+                                    </div>
+                                ");
+                        }
+                        ?> -->
+                        
+                        <div>
+                            <span>Already registered? </span><a class="normal-link" href='./login.htm'>Login Here</a>
+                        </div>
+                    </div>
+
+                    <div class="form-control">
+                        <input class="button-secondary button-big" type="submit" value="Register">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

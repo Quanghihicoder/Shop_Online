@@ -1,0 +1,222 @@
+/* Global styles */
+
+/* ==========================  Color  ============================== */
+:root {
+    --primary-color: #0d1e6a;
+    --secondary-color: #cf5c36;
+    --button-color: #0D5D56;
+    --success-color: #386641;
+    --error-color: #bc4b51;
+    --background-color: #f6fff8;
+    --text-color: #262626;
+    --button-text-color: white;
+}
+
+html,
+body {
+    width: 100vw;
+    min-height: 100vh;
+    margin: 0px;
+    padding: 0px;
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    background-color: var(--background-color);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* ==========================  Link  ============================== */
+a {
+    text-decoration: none;
+}
+
+a:link {
+    color: var(--text-color);
+}
+
+a:visited {
+    color: var(--text-color);
+}
+
+a:hover {
+    color: var(--text-color);
+}
+
+a:active {
+    color: var(--text-color);
+}
+
+.normal-link {
+    text-decoration: underline;
+}
+
+.normal-link:link {
+    color: var(--primary-color);
+}
+
+.normal-link:hover {
+    color: var(--primary-color);
+}
+
+/* ==========================  Text  ============================== */
+p, span, a, b, ul, li, label {
+    color: var(--text-color);
+    font-family: cursive;
+    font-size: 20px;
+}
+
+.error {
+    color: var(--error-color) !important;
+}
+
+.success {
+    color: var(--success-color) !important;
+}
+
+
+/* ==========================  Remove up & down button in number input  ============================== */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* ==========================  Container  ============================== */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+/* ==========================  Navigation  ============================== */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10vh;
+    width: 90vw;
+    padding: 0vw 5vw;
+}
+
+.navigation-title-container .title {
+    font-size: 32px;
+    color: var(--primary-color);
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    font-family: cursive;
+}
+
+.navigation-bar-container {
+    display: flex;
+    flex-direction: row;
+    gap: 8vw;
+} 
+
+.navigation-bar-container .nav-link {
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+    font-family: cursive;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+
+.navigation-bar-container .nav-link.current {
+    color: var(--secondary-color);
+}
+
+.navigation-bar-container .nav-link:hover {
+    color: var(--button-color);
+}
+
+.navigation-account-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5vw;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ==========================  Main  ============================== */
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 90vh;
+    width: 100vw;
+}
+
+/* ==========================  Button  ============================== */
+.button-primary {
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 2px solid var(--primary-color);
+    background-color: var(--background-color);
+    color: var(--primary-color) !important;
+    font-family: cursive;
+}
+
+.button-primary:hover {
+    background-color: var(--primary-color);
+    color: var(--button-text-color) !important;
+}
+
+.button-secondary {
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 2px solid var(--button-color);
+    background-color: var(--background-color);
+    color: var(--button-color) !important;
+    font-family: cursive;
+}
+
+.button-secondary:hover {
+    background-color: var(--button-color);
+    color: var(--button-text-color) !important;
+}
+
+
+.button-danger {
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 2px solid var(--error-color);
+    background-color: var(--background-color);
+    color: var(--error-color) !important;
+    font-family: cursive;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.button-danger:hover {
+    background-color: var(--error-color);
+    color: var(--button-text-color) !important;
+}
+
+.button-primary.button-big {
+    font-size: 24px;
+    font-weight: 700;
+    border: 3px solid var(--primary-color);
+}
+
+.button-secondary.button-big {
+    font-size: 24px;
+    font-weight: 700;
+    border: 3px solid var(--button-color);
+}

@@ -45,12 +45,24 @@
                 <form action="" method="POST">
                     <div class="form-input">
                         <div class="form-inputfeild">
-                            <label>Name <span class="error">*</span></label>
-                            <input type="text" name="name" maxlength="35" placeholder="Enter your name" value="" required />
+                            <label>First Name <span class="error">*</span></label>
+                            <input type="text" name="fname" maxlength="35" placeholder="Enter your first name" value="" required />
                             <span class="error">
                                 <!-- <?php
-                                if (isset($error["name"])) {
-                                    echo "* " . $error["name"];
+                                if (isset($error["fname"])) {
+                                    echo "* " . $error["fname"];
+                                }
+                                ?> -->
+                            </span>
+                        </div>
+
+                        <div class="form-inputfeild">
+                            <label>Last Name <span class="error">*</span></label>
+                            <input type="text" name="lname" maxlength="35" placeholder="Enter your last name" value="" required />
+                            <span class="error">
+                                <!-- <?php
+                                if (isset($error["lname"])) {
+                                    echo "* " . $error["lname"];
                                 }
                                 ?> -->
                             </span>
@@ -91,29 +103,6 @@
                                 ?> -->
                             </span>
                         </div>
-
-                        <div class="form-inputfeild">
-                            <label>Phone <span class="error">*</span></label>
-                            <input type="number" name="phone" maxlength="10" placeholder="Enter your phone number" value="" required />
-                            <span class="error">
-                                <!-- <?php
-                                if (isset($error["phone"])) {
-                                    echo "* " . $error["phone"];
-                                }
-                                ?> -->
-                            </span>
-                        </div>
-                        <!-- 
-                        <?php
-                        if ($user_role == 1) {
-                            echo ("
-                                    <div class='form-inputcheckbox'>
-                                        <label>Register an admin</label>
-                                        <input type='checkbox' name='admin' value='1'/>
-                                    </div>
-                                ");
-                        }
-                        ?> -->
                         
                         <div>
                             <span>Already registered? </span><a class="normal-link" href='./login.htm'>Login Here</a>

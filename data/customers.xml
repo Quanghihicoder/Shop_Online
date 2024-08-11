@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <customers>
     <customer>
-        <id></id>
-        <firstname></firstname>
-        <surname></surname>
-        <email></email>
-        <password></password>
+        <id>0</id>
+        <firstname>Q</firstname>
+        <surname>q</surname>
+        <email>aa@aa.aa</email>
+        <password>aa</password>
     </customer>
 
     

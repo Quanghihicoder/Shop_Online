@@ -15,10 +15,11 @@
     <link rel="stylesheet" href="./styles/login.css?v=1">
     <link rel="stylesheet" href="./styles/responsive.css?v=1">
 
+    <script type="text/javascript" src="./scripts/checkLoggedIn.js"></script>
     <script type="text/javascript" src="./scripts/login.js"></script>
 </head>
 
-<body>
+<body onload="checkLoggedIn(type='redirect', target='./register.htm');">
     <div class="login container">
         <div class="navigation">
             <div class="navigation-title-container">

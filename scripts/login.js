@@ -9,17 +9,46 @@ const submitForm = () => {
     let inputEmail = document.getElementById("login-form-input-email").value
     let inputPass = document.getElementById("login-form-input-password").value
 
+    let inputEmailError = document.getElementById("login-form-input-email-error")
+    let inputPassError = document.getElementById("login-form-input-password-error")
+
+
     let params = "email=" + inputEmail + "&pass=" + inputPass;
 
     xhr.open("POST", "./php/login.php", true);
 
-    // this&that => this%26that
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
     xhr.onreadystatechange = function() {
         if ((xhr.readyState == 4) && (xhr.status == 200)) {
-            console.log(xhr.responseText.split("\n"));
- 
+            parser = new DOMParser();
+            xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
+
+            if (xmlDoc.getElementsByTagName("errors").length > 0) {
+                if (xmlDoc.getElementsByTagName("email").length > 0) {
+                    inputEmailError.innerHTML = xmlDoc.getElementsByTagName("email")[0].childNodes[0].nodeValue;
+                } 
+                else {
+                    inputEmailError.innerHTML = "";
+                }
+    
+                if (xmlDoc.getElementsByTagName("pass").length > 0) {
+                    inputPassError.innerHTML = xmlDoc.getElementsByTagName("pass")[0].childNodes[0].nodeValue;
+                }
+                else {
+                    inputPassError.innerHTML = "";
+                }
+            } else {
+
+                inputEmailError.innerHTML = "";
+                inputPassError.innerHTML = "";
+
+                if (xmlDoc.getElementsByTagName("action").length > 0) {
+                    if (xmlDoc.getElementsByTagName("action")[0].childNodes[0].nodeValue == "redirect") {
+                        window.location.replace("./register.htm");
+                    }
+                }  
+            }
         }
     };
     xhr.send(params);

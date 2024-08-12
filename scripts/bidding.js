@@ -5,7 +5,7 @@ if (window.XMLHttpRequest)
 else if (window.ActiveXObject)
     xhr = new ActiveXObject("Microsoft.XMLHTTP");
 
-const checkLoggedIn = (type, target="") => {
+const checkLoggedIn = () => {
     xhr.open("GET", "./php/checkLoggedIn.php", true);
 
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -17,11 +17,27 @@ const checkLoggedIn = (type, target="") => {
                 xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
     
                 if (xmlDoc.getElementsByTagName("loggedIn").length > 0) {
-                    if (xmlDoc.getElementsByTagName("loggedIn")[0].childNodes[0].nodeValue == "true") {
-                        window.location.replace("./register.htm");
+                    if (xmlDoc.getElementsByTagName("loggedIn")[0].childNodes[0].nodeValue == "false") {
+                        window.location.replace("./login.htm");
                     }
                 } 
             }                        
+        }
+    };
+    
+    xhr.send(null);
+}
+
+const logOut = (event) => {
+    event.preventDefault();
+
+    xhr.open("GET", "./php/logout.php", true);
+
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    xhr.onreadystatechange = function() {
+        if ((xhr.readyState == 4) && (xhr.status == 200)) {   
+            window.location.replace("./login.htm");
         }
     };
     

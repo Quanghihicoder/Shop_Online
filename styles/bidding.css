@@ -1,4 +1,4 @@
-/* Login page styles */
+/* Bidding page styles */
 
 /* ==========================  Intro  ============================== */
 .intro-container {
@@ -8,7 +8,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 2vh;
+    gap: 1vh;
     padding: 0vw 7vw;
     text-align: center;
 }
@@ -24,21 +24,21 @@
     font-weight: 700;
 }
 
-/* ==========================  Form  ============================== */
-.form-container {
-    display: flex;
-    flex-direction: column;
+/* ==========================  List  ============================== */
+.list-container {
+    display: grid;
+    grid-template-columns: auto auto;
     justify-content: center;
     align-items: center;
+    gap: 5vh;
     min-height: 65vh;
     width: 100vw;
     margin: 5vh 0vh;
 }
 
-
-form {
-    width: 40vw;
-    min-height: 51vh;
+.list-container-item {
+    width: 35vw;
+    min-height: 42vh;
     background-color: white;
     padding: 6vh 5vh;
     border-radius: 20px;
@@ -46,40 +46,27 @@ form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 3vh;
 }
 
-.form-input {
+.item-content table th {
+    text-align: start;
+    width: 12vw;
+}
+
+.item-content table td {
+    text-overflow: ellipsis; 
+    overflow: hidden; 
+    max-width: 23vw;
+    white-space: nowrap;
+}
+
+.item-content table {
+  border-spacing: 0 1vh;
+}
+
+.item-button {
     display: flex;
-    flex-direction: column;
-    gap: 2vh;
-}
-
-.form-inputfeild {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-inputfeild label {
-}
-
-.form-inputfeild input {
-    padding: 8px 15px 10px 8px;
-    margin-top: 5px;
-    margin-bottom: 2px;
-    border-radius: 20px;
-}
-
-.form-inputfeild span {
-    height: 18px;
-    font-size: 14px;
-}
-
-.form-input div:last-child {
-    margin-top: 2vh;
-}
-
-.form-control {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    gap: 2vw
 }

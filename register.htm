@@ -14,23 +14,15 @@
     <link rel="stylesheet" href="./styles/style.css?v=1">
     <link rel="stylesheet" href="./styles/register.css?v=1">
     <link rel="stylesheet" href="./styles/responsive.css?v=1">
+
+    <script type="text/javascript" src="./scripts/register.js"></script>
 </head>
 
-<body>
+<body onload="checkLoggedIn();">
     <div class="register container">
         <div class="navigation">
             <div class="navigation-title-container">
                 <a class="title" href='./'>ShopOnline</a>
-            </div>
-
-            <div class="navigation-bar-container">
-                <a class="nav-link" href='./listing.htm'>Listing</a>
-                <a class="nav-link" href='./bidding.htm'>Bidding</a>
-                <a class="nav-link" href='./maintenance.htm'>Maintenance</a>
-            </div>
-
-            <div class="navigation-account-container">
-                <a class='button-danger' href='./logout.php'>Logout</a>
             </div>
         </div>
 
@@ -41,67 +33,36 @@
             </div>
 
             <div class="form-container">
-                <!-- <form action="<?php echo htmlspecialchars($_SERVER["REQUEST_URI"]); ?>" method="POST"> -->
-                <form action="" method="POST">
+                <form>
                     <div class="form-input">
                         <div class="form-inputfeild">
                             <label>First Name <span class="error">*</span></label>
-                            <input type="text" name="fname" maxlength="35" placeholder="Enter your first name" value="" required />
-                            <span class="error">
-                                <!-- <?php
-                                if (isset($error["fname"])) {
-                                    echo "* " . $error["fname"];
-                                }
-                                ?> -->
-                            </span>
+                            <input type="text" id="register-form-input-first-name" name="register-form-input-first-name" maxlength="35" placeholder="Enter your first name" value="" required />
+                            <span class="error" id="register-form-input-first-name-error"></span>
                         </div>
 
                         <div class="form-inputfeild">
                             <label>Last Name <span class="error">*</span></label>
-                            <input type="text" name="lname" maxlength="35" placeholder="Enter your last name" value="" required />
-                            <span class="error">
-                                <!-- <?php
-                                if (isset($error["lname"])) {
-                                    echo "* " . $error["lname"];
-                                }
-                                ?> -->
-                            </span>
+                            <input type="text" id="register-form-input-last-name" name="register-form-input-last-name" maxlength="35" placeholder="Enter your last name" value="" required />
+                            <span class="error" id="register-form-input-last-name-error"></span>
                         </div>
 
                         <div class="form-inputfeild">
                             <label>Email <span class="error">*</span></label>
-                            <input type="email" name="email" maxlength="320" placeholder="Enter your email address" value="" required />
-                            <span class="error">
-                                <!-- <?php
-                                if (isset($error["email"])) {
-                                    echo "* " . $error["email"];
-                                }
-                                ?> -->
-                            </span>
+                            <input type="email" id="register-form-input-email" name="register-form-input-email" maxlength="320" placeholder="Enter your email address" value="" required />
+                            <span class="error" id="register-form-input-email-error"></span>
                         </div>
 
                         <div class="form-inputfeild">
                             <label>Password <span class="error">*</span></label>
-                            <input type="password" name="pass" maxlength="20" placeholder="Enter a password" required />
-                            <span class="error">
-                                <!-- <?php
-                                if (isset($error["pass"])) {
-                                    echo "* " . $error["pass"];
-                                }
-                                ?> -->
-                            </span>
+                            <input type="password" id="register-form-input-password" name="register-form-input-password" maxlength="20" placeholder="Enter a password" required />
+                            <span class="error" id="register-form-input-password-error"></span>
                         </div>
 
                         <div class="form-inputfeild">
                             <label>Confirm Password <span class="error">*</span></label>
-                            <input type="password" name="repass" maxlength="20" placeholder="Re-enter the password" required />
-                            <span class="error">
-                                <!-- <?php
-                                if (isset($error["repass"])) {
-                                    echo "* " . $error["repass"];
-                                }
-                                ?> -->
-                            </span>
+                            <input type="password" id="register-form-input-confirm-password" name="register-form-input-confirm-password" maxlength="20" placeholder="Re-enter the password" required />
+                            <span class="error" id="register-form-input-confirm-password-error"></span>
                         </div>
                         
                         <div>
@@ -110,9 +71,13 @@
                     </div>
 
                     <div class="form-control">
-                        <input class="button-secondary button-big" type="submit" value="Register">
+                        <input class="button-secondary button-big" id="register-form-submit-button" type="submit" value="Register">
                     </div>
                 </form>
+
+                <script type="text/javascript">
+                    document.getElementById("register-form-submit-button").addEventListener("click", (event) => submitForm(event)); 
+                </script>
             </div>
         </div>
     </div>

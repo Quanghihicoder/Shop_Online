@@ -1,4 +1,4 @@
-/* Login page styles */
+/* Listing page styles */
 
 /* ==========================  Intro  ============================== */
 .intro-container {
@@ -62,7 +62,9 @@ form {
 .form-inputfeild label {
 }
 
-.form-inputfeild input {
+.form-inputfeild input,
+.form-inputfeild textarea,
+.form-inputfeild select    {
     padding: 8px 15px 10px 8px;
     margin-top: 5px;
     margin-bottom: 2px;
@@ -74,12 +76,33 @@ form {
     font-size: 14px;
 }
 
-.form-input div:last-child {
-    margin-top: 2vh;
+.form-inputfeild-multiple-input {
+    display: flex;
+    flex-direction: row;
+    gap: 3vw
+}
+
+.form-inputfeild-multiple-input div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5vw
+}
+
+.form-inputfeild-multiple-input div input {
+    width: 5vw;
+}
+
+.form-inputfeild-multiple-input div span {
+    font-size: 18px;
 }
 
 .form-control {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
+    gap: 5vw;
+    margin-top: 5vh;
 }

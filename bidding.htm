@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Web Application Development" />
+    <meta name="keywords" content="PHP" />
+    <meta name="author" content="Nhat Quang Hoang - 103579765" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShopOnline</title>
+
+    <link rel="stylesheet" href="./styles/style.css?v=1">
+    <link rel="stylesheet" href="./styles/bidding.css?v=1">
+    <link rel="stylesheet" href="./styles/responsive.css?v=1">
+
+    <script type="text/javascript" src="./scripts/bidding.js"></script>
+</head>
+
+<body onload="checkLoggedIn();">
+    <div class="bidding container">
+        <div class="navigation">
+            <div class="navigation-title-container">
+                <a class="title" href='./index.htm'>ShopOnline</a>
+            </div>
+
+            <div class="navigation-bar-container">
+                <a class="nav-link" href='./listing.htm'>Listing</a>
+                <a class="nav-link current" href='./bidding.htm'>Bidding</a>
+                <a class="nav-link" href='./maintenance.htm'>Maintenance</a>
+            </div>
+
+            <div class="navigation-account-container">
+                <a class='button-danger' id="logout-button">Logout</a>
+            </div>
+            
+            <script type="text/javascript">
+                document.getElementById("logout-button").addEventListener("click", (event) => logOut(event)); 
+            </script>
+        </div>
+
+        <div class="main">
+            <div class="intro-container">
+                <p class='intro-title'>Buy an item</p>
+                <p>Current auction items are listed below. To place a bid for an item, use the Place Bid button.</p>
+                <p><b>NOTE: </b>Item remaining time and bid prices are updatedevery 5 seconds</p>
+            </div>
+
+            <div class="list-container">
+                <div class="list-container-item">
+                    <div class="item-content">
+                        <table>
+                            <tr>
+                              <th>Item No:</th>
+                              <td>1</td>
+                            </tr>
+                            <tr>
+                              <th>Item Name:</th>
+                              <td>Bro</td>
+                            </tr>
+                            <tr>
+                              <th>Category:</th>
+                              <td>Camera</td>
+                            </tr>
+                            <tr>
+                                <th>Description:</th>
+                                <td>Camera ahahahhadasjhhskdasjkjsadshjakjasdhdjjk sda asjhasdjkjhsadsjhjhksadhjkdsa</td>
+                            </tr>
+                            <tr>
+                                <th>Buy It Now Price:</th>
+                                <td>700</td>
+                            </tr>
+                            <tr>
+                                <th>Bid Price:</th>
+                                <td>120</td>
+                            </tr>
+                            <tr>
+                                <th>Remaining Time:</th>
+                                <td>6 days 23 hours 4 minutes 30 seconds</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="item-button">
+                        <input class="button-secondary button-mid" id="" type="button" value="Place Bid">
+                        <input class="button-primary button-mid" id="" type="button" value="Buy It Now">
+                    </div>
+                </div>
+                <div class="list-container-item"></div>
+                <div class="list-container-item"></div>
+                <div class="list-container-item"></div>
+                <div class="list-container-item"></div>
+            </div>
+        </div>
+    </div>    
+</body>
+
+</html>

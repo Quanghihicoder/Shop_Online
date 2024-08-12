@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Web Application Development" />
+    <meta name="keywords" content="PHP" />
+    <meta name="author" content="Nhat Quang Hoang - 103579765" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShopOnline</title>
+
+    <link rel="stylesheet" href="./styles/style.css?v=1">
+    <link rel="stylesheet" href="./styles/listing.css?v=1">
+    <link rel="stylesheet" href="./styles/responsive.css?v=1">
+
+    <script type="text/javascript" src="./scripts/listing.js"></script>
+</head>
+
+<body onload="checkLoggedIn();">
+    <div class="listing container">
+        <div class="navigation">
+            <div class="navigation-title-container">
+                <a class="title" href='./index.htm'>ShopOnline</a>
+            </div>
+
+            <div class="navigation-bar-container">
+                <a class="nav-link current" href='./listing.htm'>Listing</a>
+                <a class="nav-link" href='./bidding.htm'>Bidding</a>
+                <a class="nav-link" href='./maintenance.htm'>Maintenance</a>
+            </div>
+
+            <div class="navigation-account-container">
+                <a class='button-danger' id="logout-button">Logout</a>
+            </div>
+            
+            <script type="text/javascript">
+                document.getElementById("logout-button").addEventListener("click", (event) => logOut(event)); 
+            </script>
+        </div>
+
+        <div class="main">
+            <div class="intro-container">
+                <p class='intro-title'>Add an item for sale</p>
+                <p>Please fill the fields below to complete your listing!</p>
+            </div>
+
+            <div class="form-container">
+                <form id="listing-form">
+                    <div class="form-input">
+                        <div class="form-inputfeild">
+                            <label>Item Name <span class="error">*</span></label>
+                                <input type="text" id="listing-form-input-itemname" name="listing-form-input-itemname" placeholder="Enter your item name" required />
+                            
+                            <span class="error" id="listing-form-input-itemname-error"></span>
+                        </div>
+
+                        <div class="form-inputfeild">
+                            <label>Category <span class="error">*</span></label>
+                            
+                            <select id="listing-form-input-category" name="listing-form-input-category" >
+                                <option value="camera">Camera</option>
+                                <option value="phone">Phone</option>
+                                <option value="other">Other</option>
+                            </select>
+
+                            <span class="error" id="listing-form-input-category-error"></span>
+                        </div>
+
+                        <div class="form-inputfeild">
+                            <label>Description <span class="error">*</span></label>
+                            <textarea  id="listing-form-input-description" name="listing-form-input-description" placeholder="Enter your item description" rows="5"></textarea>
+                        
+                            <span class="error" id="listing-form-input-description-error"></span>
+                        </div>
+
+                        <div class="form-inputfeild">
+                            <label>Start Price <span class="error">*</span></label>
+                            <input type="number" id="listing-form-input-start-price" name="listing-form-input-start-price" value="0.00" min="0.00" step="0.01" />
+                        
+                            <span class="error" id="listing-form-input-start-price-error"></span>
+                        </div>
+
+                        <div class="form-inputfeild">
+                            <label>Reserve Price <span class="error">*</span></label>
+                            <input type="number" id="listing-form-input-reserve-price" name="listing-form-input-reserve-price" value="0.00" min="0.00" step="0.01"  />
+                        
+                            <span class="error" id="listing-form-input-reserve-price-error"></span>
+                        </div>
+
+                        <div class="form-inputfeild">
+                            <label>Buy It Now Price <span class="error">*</span></label>
+                            <input type="number" id="listing-form-input-buy-it-now-price" name="listing-form-input-buy-it-now-price" value="0.00" min="0.00" step="0.01"   />
+                        
+                            <span class="error" id="listing-form-input-buy-it-now-price-error"></span>
+                        </div>
+
+                        <div class="form-inputfeild">
+                            <label>Duration <span class="error">*</span></label>
+                            <div class="form-inputfeild-multiple-input"> 
+                                <div>
+                                    <input type="number" id="listing-form-input-duration-day" name="listing-form-input-duration-day" value="0" min="0" step="1"  />
+                                    <span>Day</span> 
+                                </div>
+                                <div>
+                                    <input type="number" id="listing-form-input-duration-hour" name="listing-form-input-duration-hour" value="0" min="0" step="1"   />
+                                    <span>Hour</span>
+                                </div>
+                                <div>
+                                    <input type="number" id="listing-form-input-duration-min" name="listing-form-input-duration-min" value="0" min="0" step="1"  />
+                                    <span>Min</span>
+                                </div>
+                            </div>
+                            <span class="error" id="listing-form-input-duration-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-success-message">
+                        <p class="success" id="listing-form-success-message"></p>
+                    </div>
+
+                    <div class="form-control">
+                        <input class="button-secondary button-big" id="listing-form-submit-button" type="button" value="Listing">
+                        <input class="button-secondary button-big" type="reset" value="Reset">
+                    </div>
+                </form>
+
+                <script type="text/javascript">
+                    document.getElementById("listing-form-submit-button").addEventListener("click", (event) => submitForm(event)); 
+                </script>
+            </div>
+        </div>
+    </div>    
+</body>
+
+</html>

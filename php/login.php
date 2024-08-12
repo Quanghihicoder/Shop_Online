@@ -1,16 +1,14 @@
 <?php
+// Get the configuration file including php version and running operating system
+require("config.php");
+
 // An array to store all errors  
 $errorArray = array();
-
-// // start the session
-session_start();
 
 $xmlResponse = new DOMDocument;
 // It will format the output in xml format otherwise
 // the output will be in a single row
 $xmlResponse->formatOutput = true;
-
-// // Check if the user logged in
 
 // If email data is set
 if (isset($_POST["email"])) {
@@ -63,11 +61,13 @@ if (empty($errorArray) && isset($email) && isset($pass)) {
         foreach ($customerList as $customer) {
             if ($email == $customer->childNodes->item(3)->childNodes->item(0)->nodeValue) {
                 $foundEmail = true;
-                if ($pass == $customer->childNodes->item(4)->childNodes->item(0)->nodeValue) {
+                if (hash("sha256", $pass) == $customer->childNodes->item(4)->childNodes->item(0)->nodeValue) {
                     $action = $xmlResponse->createElement("action");
                     $xmlResponse->appendChild($action);
                     $action->appendChild($xmlResponse->createTextNode("redirect"));
 
+                    // start the session
+                    session_start(); 
                     $_SESSION["user_id"] = $customer->childNodes->item(0)->childNodes->item(0)->nodeValue;
                 } else {
                     $errors = $xmlResponse->createElement("errors");
@@ -87,3 +87,6 @@ if (empty($errorArray) && isset($email) && isset($pass)) {
 
 
 echo $xmlResponse->saveXML();
+
+
+?>

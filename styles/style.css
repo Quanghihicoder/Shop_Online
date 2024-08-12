@@ -65,10 +65,15 @@ a:active {
 }
 
 /* ==========================  Text  ============================== */
-p, span, a, b, ul, li, label {
+p, span, a, b, ul, li, label, th, td {
     color: var(--text-color);
     font-family: cursive;
     font-size: 20px;
+}
+
+textarea {
+    resize: none;
+    overflow: auto;
 }
 
 .error {
@@ -113,6 +118,10 @@ input[type=number] {
     padding: 0vw 5vw;
 }
 
+.navigation .navigation-title-container:first-child:last-child {
+    margin: 0 auto;
+}
+
 .navigation-title-container .title {
     font-size: 32px;
     color: var(--primary-color);
@@ -137,9 +146,9 @@ input[type=number] {
     color: var(--text-color);
 }
 
-
 .navigation-bar-container .nav-link.current {
     color: var(--secondary-color);
+    font-weight: 900;
 }
 
 .navigation-bar-container .nav-link:hover {
@@ -152,6 +161,11 @@ input[type=number] {
     gap: 1.5vw;
     justify-content: center;
     align-items: center;
+}
+
+.navigation-bar-container.hidden,
+.navigation-account-container.hidden {
+    display: none;
 }
 
 /* ==========================  Main  ============================== */
@@ -220,3 +234,12 @@ input[type=number] {
     font-weight: 700;
     border: 3px solid var(--button-color);
 }
+
+.button-primary.button-mid {
+    font-size: 18px;
+}
+
+.button-secondary.button-mid {
+    font-size: 18px;
+}
+

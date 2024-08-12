@@ -1,4 +1,6 @@
 <?php
+// Get the configuration file including php version and running operating system
+require("config.php");
 
 // // start the session
 session_start(); 

@@ -15,27 +15,15 @@
     <link rel="stylesheet" href="./styles/login.css?v=1">
     <link rel="stylesheet" href="./styles/responsive.css?v=1">
 
-    <script type="text/javascript" src="./scripts/checkLoggedIn.js"></script>
     <script type="text/javascript" src="./scripts/login.js"></script>
 </head>
 
-<body onload="checkLoggedIn(type='redirect', target='./register.htm');">
+<body onload="checkLoggedIn();">
     <div class="login container">
         <div class="navigation">
             <div class="navigation-title-container">
                 <a class="title" href='./'>ShopOnline</a>
             </div>
-
-            <div class="navigation-bar-container">
-                <a class="nav-link" href='./listing.htm'>Listing</a>
-                <a class="nav-link" href='./bidding.htm'>Bidding</a>
-                <a class="nav-link" href='./maintenance.htm'>Maintenance</a>
-            </div>
-
-            <div class="navigation-account-container">
-                <a class='button-danger' href='./logout.php'>Logout</a>
-            </div>
-            
         </div>
 
         <div class="main">
@@ -72,7 +60,7 @@
                 </form>
 
                 <script type="text/javascript">
-                    document.getElementById("login-form-submit-button").addEventListener("click", submitForm); 
+                    document.getElementById("login-form-submit-button").addEventListener("click", (event) => submitForm(event)); 
                 </script>
             </div>
         </div>

@@ -1,38 +1,45 @@
 <?php
+// Get the configuration file including php version and running operating system
+require("config.php");
+
 // An array to store all errors  
-$error = array();
+$errorArray = array();
 
-// start the session
-// session_start();
+$xmlResponse = new DOMDocument;
+// It will format the output in xml format otherwise
+// the output will be in a single row
+$xmlResponse->formatOutput = true;
 
-// Check if the user logged in
-if (isset($_SESSION["user_email"]) && isset($_SESSION["user_role"])) {
-    if (intval($_SESSION["user_role"]) == 0) {
-        header("location:index.php"); // redirect to index.php
-        exit();
+// If first name data is set
+if (isset($_POST["firstname"])) {
+    // If first name data is empty
+    if (empty($_POST["firstname"])) {
+        $errorArray["firstname"] = "Please enter your first name.";
     } else {
-        $user_role = intval($_SESSION["user_role"]);
+        // Get the user first name 
+        $firstname = $_POST["firstname"];
+
+        if (!preg_match("/^[a-zA-Z\s]*$/", $firstname)) {
+            $errorArray["firstname"] = "Invalid first name. Can only include characters and spaces.";
+        } else if (strlen($firstname) > 35) {
+            $errorArray["firstname"] = "Invalid first name. Name should be shorter than 35 characters.";
+        }
     }
 }
 
-// If name data is set
-if (isset($_POST["name"])) {
-    // If name data is empty
-    if (empty($_POST["name"])) {
-        $error["name"] = "Please enter your name.";
+// If last name data is set
+if (isset($_POST["lastname"])) {
+    // If last name data is empty
+    if (empty($_POST["lastname"])) {
+        $errorArray["lastname"] = "Please enter your last name.";
     } else {
-        // Get the user name 
-        $name = $_POST["name"];
+        // Get the user last name 
+        $lastname = $_POST["lastname"];
 
-        if (!preg_match("/^[a-zA-Z\s]*$/", $name)) {
-            $error["name"] = "Invalid name. Can only include characters and spaces.";
-        } else if (strlen($name) > 35) {
-            $error["name"] = "Invalid name. Name should be shorter than 35 characters.";
-        } else {
-            // Clear name input error message
-            if (isset($error["name"])) {
-                unset($error["name"]);
-            }
+        if (!preg_match("/^[a-zA-Z\s]*$/", $lastname)) {
+            $errorArray["lastname"] = "Invalid last name. Can only include characters and spaces.";
+        } else if (strlen($lastname) > 35) {
+            $errorArray["lastname"] = "Invalid last name. Name should be shorter than 35 characters.";
         }
     }
 }
@@ -41,208 +48,158 @@ if (isset($_POST["name"])) {
 if (isset($_POST["email"])) {
     // If email data is empty
     if (empty($_POST["email"])) {
-        $error["email"] = "Please enter your email address.";
+        $errorArray["email"] = "Please enter your email address.";
     } else {
         // Get the user email address 
         $email = strtolower($_POST["email"]);
 
         if (!preg_match("/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/", $email)) {
-            $error["email"] = "Invalid email.";
+            $errorArray["email"] = "Invalid email.";
         } else if (strlen($email) > 320) {
-            $error["email"] = "Invalid email. Email should be shorter than 320 characters.";
-        } else {
-            // Clear email input error message
-            if (isset($error["email"])) {
-                unset($error["email"]);
-            }
+            $errorArray["email"] = "Invalid email. Email should be shorter than 320 characters.";
         }
     }
 }
 
 
 // If password data is set
-if (isset($_POST["pass"])) {
+if (isset($_POST["password"])) {
     // If password data is empty
-    if (empty($_POST["pass"])) {
-        $error["pass"] = "Please enter a password.";
+    if (empty($_POST["password"])) {
+        $errorArray["password"] = "Please enter a password.";
     } else {
         // Get the input password 
-        $pass = $_POST["pass"];
+        $password = $_POST["password"];
 
-        if (!preg_match("/^(?=.*?[#?!@$%^&*-])/", $pass)) {
-            $error["pass"] = "Invalid password. Password must contain at least 1 special character.";
-        } else if (!preg_match("/^(?=.*?[A-Z])/", $pass)) {
-            $error["pass"] = "Invalid password. Password must contain at least 1 upper case letter.";
-        } else if (!preg_match("/^(?=.*?[a-z])/", $pass)) {
-            $error["pass"] = "Invalid password. Password must contain at least 1 lower case letter.";
-        } else if (!preg_match("/^(?=.*?[0-9])/", $pass)) {
-            $error["pass"] = "Invalid password. Password must contain at least a number.";
-        } else if (strlen($pass) < 8) {
-            $error["pass"] = "Invalid password. Password must be more than or equal 8 characters.";
-        } else {
-            // Clear password input error message
-            if (isset($error["pass"])) {
-                unset($error["pass"]);
-            }
-        }
+        if (!preg_match("/^(?=.*?[#?!@$%^&*-])/", $password)) {
+            $errorArray["password"] = "Invalid password. Password must contain at least 1 special character.";
+        } else if (!preg_match("/^(?=.*?[A-Z])/", $password)) {
+            $errorArray["password"] = "Invalid password. Password must contain at least 1 upper case letter.";
+        } else if (!preg_match("/^(?=.*?[a-z])/", $password)) {
+            $errorArray["password"] = "Invalid password. Password must contain at least 1 lower case letter.";
+        } else if (!preg_match("/^(?=.*?[0-9])/", $password)) {
+            $errorArray["password"] = "Invalid password. Password must contain at least a number.";
+        } else if (strlen($password) < 8) {
+            $errorArray["password"] = "Invalid password. Password must be more than or equal 8 characters.";
+        } 
     }
 }
 
 
 // If confirm password data is set
-if (isset($_POST["repass"])) {
+if (isset($_POST["confirmpassword"])) {
     // If confirm password data is empty
-    if (empty($_POST["repass"])) {
-        $error["repass"] = "Please re-enter the password.";
+    if (empty($_POST["confirmpassword"])) {
+        $errorArray["confirmpassword"] = "Please re-enter the password.";
     } else {
         // Get the input confirm password 
-        $repass = $_POST["repass"];
+        $confirmpassword = $_POST["confirmpassword"];
 
-        if (!isset($_POST["pass"]) || empty($_POST["pass"])) {
-            $error["repass"] = "Please enter a password first.";
-        } else if ($repass !== $pass) {
-            $error["repass"] = "Confirm password must be match with password.";
-        } else {
-            // Clear confirm password input error message
-            if (isset($error["repass"])) {
-                unset($error["repass"]);
-            }
+        if (!isset($_POST["password"]) || empty($_POST["confirmpassword"])) {
+            $errorArray["confirmpassword"] = "Please enter a password first.";
+        } else if ($confirmpassword !== $password) {
+            $errorArray["confirmpassword"] = "Confirm password must be match with password.";
         }
     }
 }
 
-// If phone number data is set
-if (isset($_POST["phone"])) {
-    // If phone number data is empty
-    if (empty($_POST["phone"])) {
-        $error["phone"] = "Please enter your phone number";
+if (!empty($errorArray)) {
+    $errors = $xmlResponse->createElement("errors");
+    $xmlResponse->appendChild($errors);
+
+    foreach ($errorArray as $x => $y) {
+        $errors->appendChild($xmlResponse->createElement($x, $y));
+    }
+}
+
+if (empty($errorArray) && isset($email) && isset($password) && isset($confirmpassword) && isset($firstname) && isset($lastname)) {
+    $xmlfile = '../data/customers.xml';
+    $xmlCustomers = new DomDocument;
+
+    $foundEmail = false;
+    
+    if (!file_exists($xmlfile)) {
+        $customers = $xmlCustomers->createElement('customers');
+		$xmlCustomers->appendChild($customers);
     } else {
-        // Get the input phone number 
-        $phone = $_POST["phone"];
+        $xmlCustomers->preserveWhiteSpace = FALSE;
+        $xmlCustomers->load($xmlfile);
 
-        if (!preg_match("/^[0-9]*$/", $phone)) {
-            $error["phone"] = "Invalid phone number. Can only include numbers.";
-        } else if (!str_starts_with($phone, '0')) {
-            $error["phone"] = "Invalid phone number. Phone numbers must start with 0.";
-        } else if (strlen($phone) != 10) {
-            $error["phone"] = "Invalid phone number. Phone numbers must have exactly 10 digits.";
-        } else {
-            // Clear phone number input error message
-            if (isset($error["phone"])) {
-                unset($error["phone"]);
+        $customerList = $xmlCustomers->getElementsByTagName("customer");
+
+        foreach ($customerList as $customer) {
+            if ($email == $customer->childNodes->item(3)->childNodes->item(0)->nodeValue) {
+                $foundEmail = true;
             }
         }
     }
-}
 
-if (isset($_POST["admin"])) {
-
-    // Get the input admin 
-    $admin = intval($_POST["admin"]);
-
-    if ($user_role == 0 && $admin == 1) {
-        $error["admin"] = "Please login as an admin to register for an admin.";
+    if ($foundEmail) {
+        $errors = $xmlResponse->createElement("errors");
+        $xmlResponse->appendChild($errors);
+        $errors->appendChild($xmlResponse->createElement("email", "The email already belongs to an account."));
     } else {
-        // Clear admin input error message
-        if (isset($error["admin"])) {
-            unset($error["admin"]);
-        }
+        $newID = $xmlCustomers->getElementsByTagName("customer")->count();
+
+        //create a customer node under customers node
+        $customers = $xmlCustomers->getElementsByTagName('customers')->item(0);
+        $customer = $xmlCustomers->createElement('customer');
+        $customers->appendChild($customer);
+
+        // create a id node 
+        $idNode = $xmlCustomers->createElement('id');
+        $customer->appendChild($idNode);
+        $idValue = $xmlCustomers->createTextNode($newID);
+        $idNode->appendChild($idValue);
+
+        // create a first name node 
+        $firstnameNode = $xmlCustomers->createElement('firstname');
+        $customer->appendChild($firstnameNode);
+        $firstnameValue = $xmlCustomers->createTextNode($firstname);
+        $firstnameNode->appendChild($firstnameValue);
+
+        // create a last name node 
+        $lastnameNode = $xmlCustomers->createElement('lastname');
+        $customer->appendChild($lastnameNode);
+        $lastnameValue = $xmlCustomers->createTextNode($lastname);
+        $lastnameNode->appendChild($lastnameValue);
+
+        // create a email node 
+        $emailNode = $xmlCustomers->createElement('email');
+        $customer->appendChild($emailNode);
+        $emailValue = $xmlCustomers->createTextNode($email);
+        $emailNode->appendChild($emailValue);
+
+        // create a password node 
+        $passwordNode = $xmlCustomers->createElement('password');
+        $customer->appendChild($passwordNode);
+        $passwordValue = $xmlCustomers->createTextNode(hash("sha256", $password));
+        $passwordNode->appendChild($passwordValue);
+
+        //save the xml file
+        $xmlCustomers->formatOutput = true;
+        $xmlCustomers->save($xmlfile);  
+
+        // send redirect
+        $action = $xmlResponse->createElement("action");
+        $xmlResponse->appendChild($action);
+        $action->appendChild($xmlResponse->createTextNode("redirect"));
+            
+        // Prepare email message
+        $to = $email;
+        $subject = 'Welcome to ShopOnline!';
+        $message = "Dear " . $firstname . ", welcome to use ShopOnline! Your customer id is " . $newID . " and the password is " . $password;
+        $headers = 'From: registration@shoponline.com.au' . "\r\n";
+
+        mail($to, $subject, $message, $headers);
+
+        // // start the session
+        session_start(); 
+        $_SESSION["user_id"] = $newID;
     }
 }
 
+echo $xmlResponse->saveXML();
 
-
-if (empty($error) && isset($email) && isset($pass) && isset($repass) && isset($phone) && isset($name)) {
-    require_once("database.php");
-
-    try {
-        // create connection to the database
-        $connection = new mysqli($host, $user, $password, $dbname);
-
-        // Check if the connection was successful
-        if ($connection->connect_errno) {
-            echo "Failed to connect to MySQL: " . $connection->connect_error;
-            exit();
-        }
-
-        if ($versionOK) {
-            // Get all existed emails
-            $query = "SELECT customer_email FROM customer WHERE customer_email=?;";
-            $result = $connection->execute_query($query, [$email]);
-        } else {
-            $email = $connection->real_escape_string($email);
-            $query = "SELECT customer_email FROM customer WHERE customer_email='$email';";
-            $result = $connection->query($query);
-        }
-
-        // Check if the query executed successfully
-        if ($result) {
-            // Check if any rows were returned
-            if ($result->num_rows > 0) {
-                $canRegister = false;
-                $error["email"] = "The email already belongs to an account.";
-            } else {
-                $canRegister = true;
-            }
-        } else {
-            // Display the error message if the query failed
-            $error["database"] = "Register Fail. Please check the database connection and reload.";
-            $canRegister = false;
-        }
-
-
-        if (isset($canRegister) && $canRegister) {
-            if ($versionOK) {
-                // Create a new user using the input data 
-
-                if ($user_role != 0) {
-                    if (isset($admin) && $admin == 1) {
-                        $query = "INSERT INTO customer SET customer_email=?, customer_password=?, customer_name=?, customer_phone=?, customer_is_admin=1;";
-                    } else {
-                        $query = "INSERT INTO customer SET customer_email=?, customer_password=?, customer_name=?, customer_phone=?, customer_is_admin=0;";
-                    }
-                } else {
-                    $query = "INSERT INTO customer SET customer_email=?, customer_password=?, customer_name=?, customer_phone=?, customer_is_admin=0;";
-                }
-
-                $result = $connection->execute_query($query, [$email, hash("sha256", $pass), $name, $phone]);
-            } else {
-                $email = $connection->real_escape_string($email);
-                $pass = $connection->real_escape_string($pass);
-                $name = $connection->real_escape_string($name);
-                $phone = $connection->real_escape_string($phone);
-
-                if ($user_role != 0) {
-                    if (isset($admin) && $admin == 1) {
-                    $query = "INSERT INTO customer SET customer_email='$email', customer_password='" . hash("sha256", $pass) . "', customer_name='$name', customer_phone='$phone', customer_is_admin=1;";
-                    } else {
-                    $query = "INSERT INTO customer SET customer_email='$email', customer_password='" . hash("sha256", $pass) . "', customer_name='$name', customer_phone='$phone', customer_is_admin=0;";
-                    }
-                } else {
-                    $query = "INSERT INTO customer SET customer_email='$email', customer_password='" . hash("sha256", $pass) . "', customer_name='$name', customer_phone='$phone', customer_is_admin=0;";
-                }
-
-                $result = $connection->query($query);
-            }
-
-            if ($result) {
-                unset($_POST);
-
-                if ($user_role == 1 ) {
-                    $success_message = "Successfully created new account. Please log out to log in to the new account.";  
-                }
-                else {
-                    header("location:login.php"); // redirect to login.php
-                    exit();
-                }
-            }
-        }
-
-        $connection->close();
-    } catch (Exception $e) {
-        // Most of the cases for dealing with tables may not be created
-        $error["database"] = "Register Fail. Please check the database connection and reload.";
-    }
-}
 
 ?>

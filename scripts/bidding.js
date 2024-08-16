@@ -48,17 +48,37 @@ const logOut = (event) => {
 const getDataList = () => {
     xhr.open("GET", "./php/bidding.php", true);
 
-    console.log(true);
-
-
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
     xhr.onreadystatechange = function() {
         if ((xhr.readyState == 4) && (xhr.status == 200)) {   
-            console.log(true);
             document.getElementById("list-container").innerHTML = xhr.responseText;
         }
     };
     
     xhr.send(null);
 }
+
+const bidItem = (id) => {
+    console.log(id)
+    document.getElementById("overlay").classList.add("display");
+}
+
+const buyItem = (id) => {
+    console.log(id)
+    document.getElementById("overlay").classList.add("display");
+}
+
+const closeForm = () => {
+    document.getElementById("overlay").classList.remove("display");
+}
+
+const submitForm = (event) => {
+
+}
+
+// const interval = setInterval(function() {
+//     getDataList();
+// }, 5000);
+
+

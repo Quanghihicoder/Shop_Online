@@ -150,7 +150,7 @@ if (empty($errorArray)
     $createTime = new DateTime();
 
     $startDate = $createTime->format("Y-m-d");
-    $startTime = $createTime->format("H:i:s");
+    $startTime = $createTime->format("H:i:sP");
 
     $status = "in_progress";
 

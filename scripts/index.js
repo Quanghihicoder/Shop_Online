@@ -54,3 +54,4 @@ const logOut = (event) => {
     
     xhr.send(null);
 }
+

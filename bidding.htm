@@ -47,50 +47,13 @@
                 <p><b>NOTE: </b>Item remaining time and bid prices are updatedevery 5 seconds</p>
             </div>
 
-            <div class="list-container">
-                <div class="list-container-item">
-                    <div class="item-content">
-                        <table>
-                            <tr>
-                              <th>Item No:</th>
-                              <td>1</td>
-                            </tr>
-                            <tr>
-                              <th>Item Name:</th>
-                              <td>Bro</td>
-                            </tr>
-                            <tr>
-                              <th>Category:</th>
-                              <td>Camera</td>
-                            </tr>
-                            <tr>
-                                <th>Description:</th>
-                                <td>Camera ahahahhadasjhhskdasjkjsadshjakjasdhdjjk sda asjhasdjkjhsadsjhjhksadhjkdsa</td>
-                            </tr>
-                            <tr>
-                                <th>Buy It Now Price:</th>
-                                <td>700</td>
-                            </tr>
-                            <tr>
-                                <th>Bid Price:</th>
-                                <td>120</td>
-                            </tr>
-                            <tr>
-                                <th>Remaining Time:</th>
-                                <td>6 days 23 hours 4 minutes 30 seconds</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="item-button">
-                        <input class="button-secondary button-mid" id="" type="button" value="Place Bid">
-                        <input class="button-primary button-mid" id="" type="button" value="Buy It Now">
-                    </div>
-                </div>
-                <div class="list-container-item"></div>
-                <div class="list-container-item"></div>
-                <div class="list-container-item"></div>
-                <div class="list-container-item"></div>
+            <div class="list-container" id="list-container">
+                <input class="button-secondary button-big" id="login-form-submit-button" type="button" value="Login">
             </div>
+
+            <script type="text/javascript">
+                document.getElementById("login-form-submit-button").addEventListener("click", () => getDataList()); 
+            </script>
         </div>
     </div>    
 </body>

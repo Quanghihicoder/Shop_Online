@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<auctions>
+  <auction>
+    <auctionid>0</auctionid>
+    <sellerid>0</sellerid>
+    <itemname>aaa</itemname>
+    <category>camera</category>
+    <desc>aaa</desc>
+    <startprice>0.01</startprice>
+    <reserveprice>0.02</reserveprice>
+    <buyitnowprice>0.03</buyitnowprice>
+    <startdate>2024-08-16</startdate>
+    <starttime>10:37:19</starttime>
+    <duration>86400</duration>
+    <status>in_progress</status>
+    <bidderid></bidderid>
+    <lastbid>0.01</lastbid>
+  </auction>
+</auctions>

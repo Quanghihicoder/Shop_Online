@@ -176,6 +176,12 @@ if (empty($errorArray) && isset($email) && isset($password) && isset($confirmpas
         $passwordValue = $xmlCustomers->createTextNode(hash("sha256", $password));
         $passwordNode->appendChild($passwordValue);
 
+        // create a balence node 
+        $balanceNode = $xmlCustomers->createElement('balance');
+        $customer->appendChild($balanceNode);
+        $balanceValue = $xmlCustomers->createTextNode(99);
+        $balanceNode->appendChild($balanceValue);
+
         //save the xml file
         $xmlCustomers->formatOutput = true;
         $xmlCustomers->save($xmlfile);  
@@ -200,6 +206,5 @@ if (empty($errorArray) && isset($email) && isset($password) && isset($confirmpas
 }
 
 echo $xmlResponse->saveXML();
-
 
 ?>

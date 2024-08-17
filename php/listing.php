@@ -68,10 +68,29 @@ if (isset($_POST["reserveprice"])) {
         // Get the reserve price
         $reserveprice = floatval($_POST["reserveprice"]);
 
+        $balance = 0.00;
+
+        $xmlfile = '../data/customers.xml';
+
+        $xmlCustomers = new DomDocument;
+
+        $xmlCustomers->preserveWhiteSpace = FALSE;
+        $xmlCustomers->load($xmlfile);
+
+        $customerList = $xmlCustomers->getElementsByTagName("customer");
+
+        foreach ($customerList as $customer) {
+            if (intval($_SESSION["user_id"]) == intval($customer->childNodes->item(0)->nodeValue)) {
+                $balance = floatval($customer->childNodes->item(5)->nodeValue);
+            }
+        }
+
         if ($reserveprice <= 0.00) {
             $errorArray["reserveprice"] = "Invalid reserve price. Reserve price has to be greater than $0.00.";
         } else if (isset($startprice) && $startprice > $reserveprice) { 
             $errorArray["startprice"] = "Invalid start price. Start price should be lower than reserve price.";
+        } else if (($reserveprice / 100) > $balance) {
+            $errorArray["reserveprice"] = "Invalid reserve price. Your balance is too low to bid.";
         }
     }
 }
@@ -231,15 +250,22 @@ if (empty($errorArray)
     $statusValue = $xmlAuctions->createTextNode($status);
     $statusNode->appendChild($statusValue);
 
-    // create auction last bidderID
+    // create auction bids
+    $bidsNode = $xmlAuctions->createElement('bids');
+    $auction->appendChild($bidsNode);
+
+    $bidNode = $xmlAuctions->createElement('bid');
+    $bidsNode->appendChild($bidNode);
+
+    // create auction bidderID
     $bidderIDNode = $xmlAuctions->createElement('bidderid');
-    $auction->appendChild($bidderIDNode);
+    $bidNode->appendChild($bidderIDNode);
     $bidderIDValue = $xmlAuctions->createTextNode("");
     $bidderIDNode->appendChild($bidderIDValue);
 
     // create auction last bid
     $lastbidNode = $xmlAuctions->createElement('lastbid');
-    $auction->appendChild($lastbidNode);
+    $bidNode->appendChild($lastbidNode);
     $lastbidValue = $xmlAuctions->createTextNode($startprice);
     $lastbidNode->appendChild($lastbidValue);
 

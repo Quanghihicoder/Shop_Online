@@ -158,8 +158,8 @@ const submitForm = (event) => {
     }
 }
 
-// const interval = setInterval(function() {
-//     getDataList();
-// }, 5000);
+const interval = setInterval(function() {
+    getDataList();
+}, 5000);
 
 

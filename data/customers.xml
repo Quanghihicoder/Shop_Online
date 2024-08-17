@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<customers>
+  <customer>
+    <id>0</id>
+    <firstname>aa</firstname>
+    <lastname>aa</lastname>
+    <email>aa@aa.aa</email>
+    <password>0794daaf36e271c335a297116418a3247331ee6e0618933c51f5db500fdae573</password>
+    <balance>999</balance>
+  </customer>
+  <customer>
+    <id>1</id>
+    <firstname>bb</firstname>
+    <lastname>bb</lastname>
+    <email>bb@bb.bb</email>
+    <password>1a0735d68d78b5556aec0c8ab9c75754f4c32153123a25fef77b2cc69fa51a49</password>
+    <balance>99</balance>
+  </customer>
+  <customer>
+    <id>2</id>
+    <firstname>cc</firstname>
+    <lastname>cc</lastname>
+    <email>cc@cc.cc</email>
+    <password>4867ca7f962a6d427d5b2963641072453d67e2c566682d12bc9a43eb1baebfaa</password>
+    <balance>99</balance>
+  </customer>
+</customers>

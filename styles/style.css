@@ -109,17 +109,31 @@ input[type=number] {
 }
 
 /* ==========================  Navigation  ============================== */
-.navigation {
+.navigation.center {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     height: 10vh;
     width: 90vw;
     padding: 0vw 5vw;
 }
 
-.navigation .navigation-title-container:first-child:last-child {
-    margin: 0 auto;
+.navigation.grid {
+    display: grid;
+    align-items: center; 
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    height: 10vh;
+    width: 90vw;
+    padding: 0vw 5vw;
+}
+
+body:has(.navigation.grid) .navigation .navigation-title-container {
+    justify-content: left;
+}
+
+body:has(.navigation.grid) .navigation .navigation-account-container  {
+    justify-content: right;
 }
 
 .navigation-title-container .title {
@@ -134,7 +148,9 @@ input[type=number] {
 .navigation-bar-container {
     display: flex;
     flex-direction: row;
-    gap: 8vw;
+    justify-content: center;
+    align-items: center;
+    gap: 6vw;
 } 
 
 .navigation-bar-container .nav-link {
@@ -168,6 +184,16 @@ input[type=number] {
     display: none;
 }
 
+.navigation-account-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.navigation-account-info span {
+    font-size: 18px;
+}
 /* ==========================  Main  ============================== */
 .main {
     display: flex;
@@ -205,7 +231,6 @@ input[type=number] {
     background-color: var(--button-color);
     color: var(--button-text-color) !important;
 }
-
 
 .button-danger {
     padding: 8px 20px;

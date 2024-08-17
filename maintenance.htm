@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Web Application Development" />
+    <meta name="keywords" content="PHP" />
+    <meta name="author" content="Nhat Quang Hoang - 103579765" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShopOnline</title>
+
+    <link rel="stylesheet" href="./styles/style.css?v=1">
+    <link rel="stylesheet" href="./styles/maintenance.css?v=1">
+    <link rel="stylesheet" href="./styles/responsive.css?v=1">
+
+    <script type="text/javascript" src="./scripts/maintenance.js"></script>
+</head>
+
+<body>   
+    <div class="maintenance container">
+        <div class="navigation">
+            <div class="navigation-title-container">
+                <a class="title" href='./index.htm'>ShopOnline</a>
+            </div>
+
+            <div class="navigation-bar-container">
+                <a class="nav-link" href='./listing.htm'>Listing</a>
+                <a class="nav-link" href='./bidding.htm'>Bidding</a>
+                <a class="nav-link current" href='./maintenance.htm'>Maintenance</a>
+            </div>
+
+            <div class="navigation-account-container">
+                <a class='button-danger' id="logout-button">Logout</a>
+            </div>
+            
+            <script type="text/javascript">
+                document.getElementById("logout-button").addEventListener("click", (event) => logOut(event)); 
+            </script>
+        </div>
+
+        <div class="main">
+            <div class="intro-container">
+                <p class='intro-title'>Choose the action to perform.</p>
+            </div>
+
+            <div class="action-container" id="action-container">
+                <input class="button-secondary button-big" id="process-button" type="button" value="Process Auction Items" onclick="action('process')">
+                <input class="button-primary button-big" id="report-button" type="button" value="Generate Report" onclick="action('report')">
+            </div>
+
+            <div class="result-container" id="result-container">
+               
+            </div>
+        </div>
+    </div>    
+</body>
+
+</html>

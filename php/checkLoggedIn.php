@@ -4,7 +4,6 @@ require("config.php");
 
 // // start the session
 session_start(); 
-// session_unset(); 
 
 $xmlResponse = new DOMDocument;
     

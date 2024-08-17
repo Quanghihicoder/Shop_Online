@@ -18,12 +18,12 @@
     <script type="text/javascript" src="./scripts/bidding.js"></script>
 </head>
 
-<body onload="checkLoggedIn(); getDataList();">
-    <div class="overlay display" id="overlay">
+<body onload="checkLoggedIn();">
+    <div class="overlay" id="overlay">
         <div class="outer" onclick="closeForm()">
         </div>
         
-        <div class="form-container">
+        <div class="form-container" id="form-container">
             <div class="close-form-container">
                 <input class="button-close" id="bid-form-close-button" type="button" value="X" onclick="closeForm()">
             </div>
@@ -46,6 +46,15 @@
             <script type="text/javascript">
                 document.getElementById("bid-form-submit-button").addEventListener("click", (event) => submitForm(event)); 
             </script>
+        </div>
+
+        <div class="success-message-container hidden" id="success-message-container">
+            <div class="close-form-container">
+                <input class="button-close" id="bid-form-close-button" type="button" value="X" onclick="closeForm()">
+            </div>
+
+            <p class="success" id="success-message"></p>
+            <p class="error" id="error-message"></p>
         </div>
     </div>    
 

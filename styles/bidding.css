@@ -104,7 +104,8 @@ body:has(.overlay.display) {
     z-index: 11;
 }
 
-.form-container {
+.form-container,
+.success-message-container {
     width: 40vw;
     height: 55vh;
     border-radius: 15px;
@@ -114,6 +115,14 @@ body:has(.overlay.display) {
     justify-content: center;
     align-items: center;
     z-index: 12;
+}
+
+.form-container.hidden {
+    display: none;
+}
+
+.success-message-container.hidden {
+    display: none;
 }
 
 form {

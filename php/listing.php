@@ -5,9 +5,8 @@ require("config.php");
 // An array to store all errors  
 $errorArray = array();
 
+// Response to JavaScript in XML format
 $xmlResponse = new DOMDocument;
-// It will format the output in xml format otherwise
-// the output will be in a single row
 $xmlResponse->formatOutput = true;
 
 // If item name data is set
@@ -68,23 +67,25 @@ if (isset($_POST["reserveprice"])) {
         // Get the reserve price
         $reserveprice = floatval($_POST["reserveprice"]);
 
+        // Get the seller balance
         $balance = 0.00;
 
         $xmlfile = '../data/customers.xml';
 
         $xmlCustomers = new DomDocument;
-
         $xmlCustomers->preserveWhiteSpace = FALSE;
         $xmlCustomers->load($xmlfile);
 
         $customerList = $xmlCustomers->getElementsByTagName("customer");
 
+        // Get balance
         foreach ($customerList as $customer) {
             if (intval($_SESSION["user_id"]) == intval($customer->childNodes->item(0)->nodeValue)) {
                 $balance = floatval($customer->childNodes->item(5)->nodeValue);
             }
         }
 
+        // Seller need to pay 1% of reserve price
         if ($reserveprice <= 0.00) {
             $errorArray["reserveprice"] = "Invalid reserve price. Reserve price has to be greater than $0.00.";
         } else if (isset($startprice) && $startprice > $reserveprice) { 
@@ -186,8 +187,24 @@ if (empty($errorArray)
     $xmlCustomers->formatOutput = true;
     $xmlCustomers->save($xmlCustomerFile);  
 
-    // prepare data
-    $auctionID = $xmlAuctions->getElementsByTagName("auction")->count();
+    // prepare id
+
+    $highestID = 0;
+
+    $auctionList = $xmlAuctions->getElementsByTagName("auction");
+
+    if ($auctionList->count() > 0) {
+        foreach ($auctionList as $a) {
+            $id =  intval($a->childNodes->item(0)->nodeValue);
+    
+            if ($id > $highestID) {
+                $highestID  = $id;
+            }
+        }   
+        $highestID = $highestID + 1; 
+    }
+    
+    $auctionID = $highestID;
     
     session_start(); 
     $sellerID = $_SESSION["user_id"];

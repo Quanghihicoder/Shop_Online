@@ -49,14 +49,6 @@ const getUserInfo = () => {
                         let name = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
                         let balance = xmlDoc.getElementsByTagName("balance")[0].childNodes[0].nodeValue;
 
-                        if (name.length > 6) {
-                            name = name.slice(0, 6) + "...";
-                        }
-
-                        if (balance.length > 6) {
-                            balance = "..." + balance.slice(-6) ;
-                        }
-
                         document.getElementById("navigation-account-name").innerHTML = "Hi, " + name;
                         document.getElementById("navigation-account-balance").innerHTML = "Balance: $" + balance;
                     } 
@@ -97,7 +89,7 @@ const getDataList = () => {
     xhr.onreadystatechange = function() {
         if ((xhr.readyState == 4) && (xhr.status == 200)) {
             if (xhr.responseText == "") {
-                document.getElementById("list-container").innerHTML = "There are currently no auctions on the market!";
+                document.getElementById("list-container").innerHTML = "<p>There are currently no auctions on the market!</p>";
             } else {
                 document.getElementById("list-container").innerHTML = xhr.responseText;
             }
@@ -145,6 +137,8 @@ const buyItem = (id) => {
                     document.getElementById("success-message").innerHTML = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue
                 }  
             }
+
+            getDataList();
         }
     };
     xhr.send(params);
@@ -193,6 +187,8 @@ const submitForm = (event) => {
                         document.getElementById("success-message-container").classList.remove("hidden")
                     }  
                 }
+
+                getDataList();
             }
         };
         xhr.send(params);

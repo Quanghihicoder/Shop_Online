@@ -5,29 +5,29 @@ require("config.php");
 // // start the session
 session_start(); 
 
+// Response to JavaScript in XML format
 $xmlResponse = new DOMDocument;
-    
-// It will format the output in xml format otherwise
-// the output will be in a single row
 $xmlResponse->formatOutput=true;
 
 // // Check if the user logged in
 if (isset($_SESSION["user_id"])) { 
 
-    $xmlfile = '../data/customers.xml';
+    $xmlCustomerFile = '../data/customers.xml';
 
-    if (!file_exists($xmlfile)) {
+    if (!file_exists($xmlCustomerFile)) {
         $errors = $xmlResponse->createElement("errors");
         $xmlResponse->appendChild($errors);
         $errors->appendChild($xmlResponse->createElement("name", "Invalid account"));
     } else {
+        // Load the customer data
         $xmlCustomers = new DomDocument;
-
         $xmlCustomers->preserveWhiteSpace = FALSE;
-        $xmlCustomers->load($xmlfile);
+        $xmlCustomers->load($xmlCustomerFile);
 
+        // Get all data
         $customerList = $xmlCustomers->getElementsByTagName("customer");
 
+        // Send account name and balance
         foreach ($customerList as $customer) {
             if (intval($_SESSION["user_id"]) == intval($customer->childNodes->item(0)->nodeValue)) {
                 $info = $xmlResponse->createElement("info");
@@ -44,6 +44,7 @@ if (isset($_SESSION["user_id"])) {
     $errors->appendChild($xmlResponse->createElement("name", "Invalid account"));
 }
 
+// Send the response to JavaScript
 echo $xmlResponse->saveXML();
 
 ?>

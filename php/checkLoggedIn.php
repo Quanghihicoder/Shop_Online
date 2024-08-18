@@ -5,10 +5,8 @@ require("config.php");
 // // start the session
 session_start(); 
 
+// Response to JavaScript in XML format
 $xmlResponse = new DOMDocument;
-    
-// It will format the output in xml format otherwise
-// the output will be in a single row
 $xmlResponse->formatOutput=true;
 
 // // Check if the user logged in

@@ -6,8 +6,8 @@ else if (window.ActiveXObject)
     xhr = new ActiveXObject("Microsoft.XMLHTTP");
 
 const checkLoggedIn = () => {
-    let navBar = document.getElementById("navigation-bar-container")
-    let navAccount = document.getElementById("navigation-account-container")
+    let loginBtn = document.getElementById("login-button")
+    let logoutBtn = document.getElementById("logout-button")
     let logoutScript = document.getElementById("logout-script")
 
     xhr.open("GET", "./php/checkLoggedIn.php", true);
@@ -22,9 +22,10 @@ const checkLoggedIn = () => {
     
                 if (xmlDoc.getElementsByTagName("loggedIn").length > 0) {
                     if (xmlDoc.getElementsByTagName("loggedIn")[0].childNodes[0].nodeValue == "false") {
-                        navBar.remove()
-                        navAccount.remove()
+                        logoutBtn.remove()
                         logoutScript.remove()
+                    } else {
+                        loginBtn.remove()
                     }
                 } 
             }                        

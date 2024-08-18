@@ -68,7 +68,5 @@
             <p>There are no auctions that are sold or failed.</p>
         </xsl:otherwise>
     </xsl:choose>
-    
-    
   </xsl:template>
 </xsl:stylesheet>

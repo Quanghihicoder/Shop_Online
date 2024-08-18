@@ -18,7 +18,7 @@
     <script type="text/javascript" src="./scripts/maintenance.js"></script>
 </head>
 
-<body>   
+<body onload="action('get_revenue');">   
     <div class="maintenance container">
         <div class="navigation grid">
             <div class="navigation-title-container">
@@ -32,16 +32,9 @@
             </div>
 
             <div class="navigation-account-container">
-                <div class="navigation-account-info">
-                    <span id="navigation-account-name"></span>
-                    <span id="navigation-account-balance"></span>
-                </div>
-                <a class='button-danger' id="logout-button">Logout</a>
+                <span id="navigation-account-balance"></span>
             </div>
-            
-            <script type="text/javascript">
-                document.getElementById("logout-button").addEventListener("click", (event) => logOut(event)); 
-            </script>
+                
         </div>
 
         <div class="main">
@@ -50,7 +43,7 @@
             </div>
 
             <div class="action-container" id="action-container">
-                <input class="button-secondary button-big" id="process-button" type="button" value="Process Auction Items" onclick="action('process')">
+                <input class="button-secondary button-big" id="process-button" type="button" value="Process Auction Items" onclick="action('process_auction')">
                 <input class="button-primary button-big" id="report-button" type="button" value="Generate Report" onclick="action('report')">
             </div>
 

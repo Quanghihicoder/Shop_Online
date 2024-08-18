@@ -1,0 +1,57 @@
+/* Index page styles */
+
+/* ==========================  Intro  ============================== */
+.intro-container {
+    min-height: 15vh;
+    width: 86vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2vh;
+    padding: 0vw 7vw;
+    text-align: center;
+}
+
+.intro-container p {
+    margin: 0;
+    padding: 0;
+    font-size: 22px;
+}
+
+.intro-container .intro-title {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+/* ==========================  Main  ============================== */
+.main-container {
+    width: 86vw;
+    min-height: 75vh;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 2.5vw;
+    padding: 0vw 7vw;
+}
+
+.main-container div {
+    width: 27vw;
+    height: 30vh;
+    padding: 7vw;
+    border: 1px solid #000;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+}
+
+.main-container div p:first-child {
+    color: var(--button-color);
+    font-size: 30px;
+}

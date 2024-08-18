@@ -47,14 +47,6 @@ const getUserInfo = () => {
                         let name = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
                         let balance = xmlDoc.getElementsByTagName("balance")[0].childNodes[0].nodeValue;
 
-                        if (name.length > 6) {
-                            name = name.slice(0, 6) + "...";
-                        }
-
-                        if (balance.length > 6) {
-                            balance = "..." + balance.slice(-6) ;
-                        }
-
                         document.getElementById("navigation-account-name").innerHTML = "Hi, " + name;
                         document.getElementById("navigation-account-balance").innerHTML = "Balance: $" + balance;
                     } 
@@ -192,12 +184,9 @@ const submitForm = (event) => {
                     formSuccessMessage.innerHTML = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue
                 }  
             }
+
+            getUserInfo()
         }
     };
     xhr.send(params);
 }
-
-
-// const interval = setInterval(function() {
-//     getUserInfo();
-// }, 5000);

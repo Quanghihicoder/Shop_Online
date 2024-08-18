@@ -179,7 +179,7 @@ if (empty($errorArray) && isset($email) && isset($password) && isset($confirmpas
         // create a balence node 
         $balanceNode = $xmlCustomers->createElement('balance');
         $customer->appendChild($balanceNode);
-        $balanceValue = $xmlCustomers->createTextNode(99);
+        $balanceValue = $xmlCustomers->createTextNode(999);
         $balanceNode->appendChild($balanceValue);
 
         //save the xml file

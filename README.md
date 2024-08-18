@@ -10,5 +10,5 @@
 
 2) Refund bidder whom are not success, Pay the seller 
 
-3) Send revernue to admin 
+3) Save revernue to admin 
 

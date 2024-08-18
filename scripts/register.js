@@ -18,7 +18,7 @@ const checkLoggedIn = () => {
     
                 if (xmlDoc.getElementsByTagName("loggedIn").length > 0) {
                     if (xmlDoc.getElementsByTagName("loggedIn")[0].childNodes[0].nodeValue == "true") {
-                        window.location.replace("./listing.htm");
+                        window.location.replace("./bidding.htm");
                     }
                 } 
             }                        
@@ -98,7 +98,7 @@ const submitForm = (event) => {
 
                 if (xmlDoc.getElementsByTagName("action").length > 0) {
                     if (xmlDoc.getElementsByTagName("action")[0].childNodes[0].nodeValue == "redirect") {
-                        window.location.replace("./listing.htm");
+                        window.location.replace("./bidding.htm");
                     }
                 }  
             }

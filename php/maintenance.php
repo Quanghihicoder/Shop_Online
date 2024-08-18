@@ -72,10 +72,108 @@ function report() {
 
         $xmlAuctions = new DomDocument;
         $xmlAuctions->preserveWhiteSpace = FALSE;
-        $xmlAuctions->formatOutput = true;
         $xmlAuctions->load($xmlfile);
 
         $auctionList = $xmlAuctions->getElementsByTagName("auction");
+
+        $xmlCustomerFile = '../data/customers.xml';
+
+        $xmlCustomers = new DomDocument;
+
+        $xmlCustomers->preserveWhiteSpace = FALSE;
+        $xmlCustomers->load($xmlCustomerFile);
+
+        $customerList = $xmlCustomers->getElementsByTagName("customer");
+
+        $xmlAdminFile = '../data/admin.xml';
+
+        $xmlAdmin = new DomDocument;
+
+        $xmlAdmin->preserveWhiteSpace = FALSE;
+        $xmlAdmin->load($xmlAdminFile);
+
+        $admin = $xmlAdmin->getElementsByTagName("admin");
+
+        $revenue = floatval($admin->item(0)->childNodes->item(0)->nodeValue);
+
+        foreach ($auctionList as $auction) {
+            $status = $auction->childNodes->item(11)->nodeValue;
+          
+            if ($status == "failed") {
+                $bidList = $auction->childNodes->item(12)->getElementsByTagName("bid");
+
+                $refundArray = array();
+
+                foreach ($bidList as $bid) {
+                    if ($bid->childNodes->item(0)->nodeValue != "" || $bid->childNodes->item(0)->nodeValue != null) {
+                        $refundArray[$bid->childNodes->item(0)->nodeValue] = $bid->childNodes->item(1)->nodeValue;
+                    }
+                }
+
+                foreach ($customerList as $customer) {
+                    if (isset($refundArray[$customer->childNodes->item(0)->nodeValue])) {
+                        $balance = floatval($customer->childNodes->item(5)->nodeValue);
+
+                        $balance = $balance + floatval($refundArray[$customer->childNodes->item(0)->nodeValue]);
+
+                        $customer->childNodes->item(5)->textContent = $balance;
+                    }
+                }
+
+                $revenue = $revenue + floatval($auction->childNodes->item(6)->nodeValue) / 100;
+            }
+
+
+            if ($status == "sold") {
+                $bidList = $auction->childNodes->item(12)->getElementsByTagName("bid");
+                
+                $highestbidderid = null;
+                $highestbid = 0;
+
+                foreach ($bidList as $bid) {
+                    $bidAmount =  floatval($bid->childNodes->item(1)->nodeValue);
+
+                    if ($bidAmount > $highestbid) {
+                        $highestbid = $bidAmount;
+                        if (!empty($bid->childNodes->item(0)->nodeValue)) {
+                            $highestbidderid = $bid->childNodes->item(0)->nodeValue;
+                        }
+                    }
+                }
+
+                $refundArray = array();
+
+                foreach ($bidList as $bid) {
+                    if ($bid->childNodes->item(0)->nodeValue != "" || $bid->childNodes->item(0)->nodeValue != null) {
+                        if (intval($bid->childNodes->item(0)->nodeValue) != intval($highestbidderid)) {
+                            $refundArray[$bid->childNodes->item(0)->nodeValue] = $bid->childNodes->item(1)->nodeValue;
+                        }
+                    }
+                }
+
+                foreach ($customerList as $customer) {
+                    if (isset($refundArray[$customer->childNodes->item(0)->nodeValue])) {
+                        $balance = floatval($customer->childNodes->item(5)->nodeValue);
+
+                        $balance = $balance + floatval($refundArray[$customer->childNodes->item(0)->nodeValue]);
+
+                        $customer->childNodes->item(5)->textContent = $balance;
+                    }
+
+                    if (intval($customer->childNodes->item(0)->nodeValue) == intval($auction->childNodes->item(1)->nodeValue)) {
+                        $balance = floatval($customer->childNodes->item(5)->nodeValue);
+
+                        $balance = $balance + $highestbid - $highestbid * 3 / 100 + floatval($auction->childNodes->item(6)->nodeValue) / 100;
+                        
+                        $customer->childNodes->item(5)->textContent = $balance;
+                    }
+                }
+
+                $revenue = $revenue + $highestbid * 3 / 100;
+            }
+        }
+
+        $admin->item(0)->childNodes->item(0)->textContent = $revenue;
 
         $nodeToRemove = array();
 
@@ -93,6 +191,13 @@ function report() {
             }
         }
 
+        $xmlCustomers->formatOutput = true;
+        $xmlCustomers->save($xmlCustomerFile);  
+
+        $xmlAdmin->formatOutput = true;
+        $xmlAdmin->save($xmlAdminFile);  
+
+        $xmlAuctions->formatOutput = true;
         $xmlAuctions->save($xmlfile);
 
         echo $proc->transformToXML($xmlDoc);

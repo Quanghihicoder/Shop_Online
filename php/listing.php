@@ -161,6 +161,31 @@ if (empty($errorArray)
         $xmlAuctions->load($xmlfile);
     }
 
+    $balance = 0.00;
+
+    $xmlCustomerFile = '../data/customers.xml';
+
+    $xmlCustomers = new DomDocument;
+
+    $xmlCustomers->preserveWhiteSpace = FALSE;
+    $xmlCustomers->load($xmlCustomerFile);
+
+    $customerList = $xmlCustomers->getElementsByTagName("customer");
+
+    foreach ($customerList as $customer) {
+        if (intval($_SESSION["user_id"]) == intval($customer->childNodes->item(0)->nodeValue)) {
+            $balance = floatval($customer->childNodes->item(5)->nodeValue);
+
+            $balance = $balance - ($reserveprice) / 100;
+
+
+            $customer->childNodes->item(5)->textContent = $balance;
+        }
+    }
+
+    $xmlCustomers->formatOutput = true;
+    $xmlCustomers->save($xmlCustomerFile);  
+
     // prepare data
     $auctionID = $xmlAuctions->getElementsByTagName("auction")->count();
     

@@ -91,11 +91,37 @@ function bid($auctionid, $bidderid, $amount) {
                         }
                     }
 
+                    $balance = 0.00;
+
+                    $xmlCustomerFile = '../data/customers.xml';
+
+                    $xmlCustomers = new DomDocument;
+
+                    $xmlCustomers->preserveWhiteSpace = FALSE;
+                    $xmlCustomers->load($xmlCustomerFile);
+
+                    $customerList = $xmlCustomers->getElementsByTagName("customer");
+
+                    foreach ($customerList as $customer) {
+                        if (intval($bidderid) == intval($customer->childNodes->item(0)->nodeValue)) {
+                            $balance = floatval($customer->childNodes->item(5)->nodeValue);
+                        }
+                    }
+
+                    $bidderlastbid = 0.00;
+
+                    foreach ($bidList as $bid) {
+                        if ($bidderid == intval($bid->childNodes->item(0)->nodeValue)) {
+                            $bidderlastbid = floatval($bid->childNodes->item(1)->textContent);
+                        }
+                    }
+
                     if ($status == "in_progress" 
                         && intval($bidderid) != intval($sellerid)
                         && intval($bidderid) != ($highestbidderid == null ? null : intval($highestbidderid)) 
                         && $expirydatetime > $currentdatetime
                         && $amount > floatval($highestbid)
+                        && $balance > ($amount - $bidderlastbid)
                         ) {
                             
                         $foundPreviousBid = false; 
@@ -122,6 +148,20 @@ function bid($auctionid, $bidderid, $amount) {
                             $newBid->appendChild($newBidID);
                             $newBid->appendChild($newBidAmount);
                         }
+
+                        foreach ($customerList as $customer) {
+                            if (intval($bidderid) == intval($customer->childNodes->item(0)->nodeValue)) {
+                                $balance = floatval($customer->childNodes->item(5)->nodeValue);
+                    
+                                $balance = $balance - ($amount - $bidderlastbid);
+                    
+                                $customer->childNodes->item(5)->textContent = $balance;
+                            }
+                        }
+                    
+                        $xmlCustomers->formatOutput = true;
+                        $xmlCustomers->save($xmlCustomerFile);  
+                    
 
                         $xmlAuctions->save($xmlfile);
 
@@ -205,16 +245,41 @@ function buy($auctionid, $buyerid) {
 
                     $status = $auction->childNodes->item(11)->nodeValue;
 
+                    $balance = 0.00;
+
+                    $xmlCustomerFile = '../data/customers.xml';
+
+                    $xmlCustomers = new DomDocument;
+
+                    $xmlCustomers->preserveWhiteSpace = FALSE;
+                    $xmlCustomers->load($xmlCustomerFile);
+
+                    $customerList = $xmlCustomers->getElementsByTagName("customer");
+
+                    foreach ($customerList as $customer) {
+                        if (intval($buyerid) == intval($customer->childNodes->item(0)->nodeValue)) {
+                            $balance = floatval($customer->childNodes->item(5)->nodeValue);
+                        }
+                    }
+
+                    $buyerlastbid = 0.00;
+
+                    $bidList = $auction->childNodes->item(12)->getElementsByTagName("bid");
+
+                    foreach ($bidList as $bid) {
+                        if ($buyerid == intval($bid->childNodes->item(0)->nodeValue)) {
+                            $buyerlastbid = floatval($bid->childNodes->item(1)->textContent);
+                        }
+                    }
+
+
                     if ($status == "in_progress" 
                         && intval($buyerid) != intval($sellerid)
                         && $expirydatetime > $currentdatetime
                         ) {
                             
-
                         $foundPreviousBid = false; 
                         
-                        $bidList = $auction->childNodes->item(12)->getElementsByTagName("bid");
-
                         foreach ($bidList as $bid) {
                             if ($buyerid == intval($bid->childNodes->item(0)->nodeValue)) {
                                 $foundPreviousBid = true;
@@ -239,6 +304,19 @@ function buy($auctionid, $buyerid) {
                         }
 
                         $auction->childNodes->item(11)->textContent = "sold";
+
+                        foreach ($customerList as $customer) {
+                            if (intval($buyerid) == intval($customer->childNodes->item(0)->nodeValue)) {
+                                $balance = floatval($customer->childNodes->item(5)->nodeValue);
+                    
+                                $balance = $balance - (floatval($auction->childNodes->item(7)->textContent) - $buyerlastbid);
+                    
+                                $customer->childNodes->item(5)->textContent = $balance;
+                            }
+                        }
+                    
+                        $xmlCustomers->formatOutput = true;
+                        $xmlCustomers->save($xmlCustomerFile);  
 
                         $xmlAuctions->save($xmlfile);
 

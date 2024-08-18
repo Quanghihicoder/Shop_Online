@@ -126,12 +126,17 @@ body:has(.overlay.display) {
 }
 
 form {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 5vh;
 }
+
+.form-input {
+    width: 80%;
+} 
 
 .form-inputfeild {
     display: flex;

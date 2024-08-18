@@ -6,7 +6,7 @@
     <lastname>aa</lastname>
     <email>aa@aa.aa</email>
     <password>0794daaf36e271c335a297116418a3247331ee6e0618933c51f5db500fdae573</password>
-    <balance>999</balance>
+    <balance>962.87</balance>
   </customer>
   <customer>
     <id>1</id>
@@ -14,7 +14,7 @@
     <lastname>bb</lastname>
     <email>bb@bb.bb</email>
     <password>1a0735d68d78b5556aec0c8ab9c75754f4c32153123a25fef77b2cc69fa51a49</password>
-    <balance>99</balance>
+    <balance>124</balance>
   </customer>
   <customer>
     <id>2</id>

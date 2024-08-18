@@ -53,6 +53,7 @@ function bid($auctionid, $bidderid, $amount) {
             $errors->appendChild($xmlResponse->createElement("bid", "Invalid auction."));
         } else {
             $xmlAuctions->preserveWhiteSpace = FALSE;
+            $xmlAuctions->formatOutput = true;
             $xmlAuctions->load($xmlfile);
 
             $auctionList = $xmlAuctions->getElementsByTagName("auction");
@@ -73,19 +74,54 @@ function bid($auctionid, $bidderid, $amount) {
                     $currentdatetime = new DateTime();
 
                     $status = $auction->childNodes->item(11)->nodeValue;
-                    $lastbidbidderid = $auction->childNodes->item(12)->nodeValue;
-                    $lastbid = $auction->childNodes->item(13)->nodeValue;
 
+                    $bidList = $auction->childNodes->item(12)->getElementsByTagName("bid");
+
+                    $highestbidderid = null;
+                    $highestbid = 0;
+
+                    foreach ($bidList as $bid) {
+                        $bidAmount =  floatval($bid->childNodes->item(1)->nodeValue);
+
+                        if ($bidAmount > $highestbid) {
+                            $highestbid = $bidAmount;
+                            if (!empty($bid->childNodes->item(0)->nodeValue)) {
+                                $highestbidderid = $bid->childNodes->item(0)->nodeValue;
+                            }
+                        }
+                    }
 
                     if ($status == "in_progress" 
                         && intval($bidderid) != intval($sellerid)
-                        && intval($bidderid) != (empty($lastbidbidderid) ? null : intval($lastbidbidderid)) 
+                        && intval($bidderid) != ($highestbidderid == null ? null : intval($highestbidderid)) 
                         && $expirydatetime > $currentdatetime
-                        && $amount > floatval($lastbid)
+                        && $amount > floatval($highestbid)
                         ) {
                             
-                        $auction->childNodes->item(12)->textContent = $bidderid;
-                        $auction->childNodes->item(13)->textContent = $amount;
+                        $foundPreviousBid = false; 
+                        
+                        foreach ($bidList as $bid) {
+                            if ($bidderid == intval($bid->childNodes->item(0)->nodeValue)) {
+                                $foundPreviousBid = true;
+                                $bid->childNodes->item(1)->textContent = $amount;
+                            }
+                        }
+
+                        if ($foundPreviousBid == false) {
+                            $newBid = $xmlAuctions->createElement("bid");
+                            $auction->childNodes->item(12)->appendChild($newBid);
+
+                            $newBidID = $xmlAuctions->createElement("bidderid");
+                            $newBidIDValue = $xmlAuctions->createTextNode($bidderid);
+                            $newBidID->appendChild($newBidIDValue);
+
+                            $newBidAmount = $xmlAuctions->createElement("lastbid");
+                            $newBidAmountValue = $xmlAuctions->createTextNode($amount);
+                            $newBidAmount->appendChild($newBidAmountValue);
+
+                            $newBid->appendChild($newBidID);
+                            $newBid->appendChild($newBidAmount);
+                        }
 
                         $xmlAuctions->save($xmlfile);
 
@@ -147,6 +183,7 @@ function buy($auctionid, $buyerid) {
             $errors->appendChild($xmlResponse->createElement("buy", "Error: Something went wrong. Can not process the payment."));
         } else {
             $xmlAuctions->preserveWhiteSpace = FALSE;
+            $xmlAuctions->formatOutput = true;
             $xmlAuctions->load($xmlfile);
 
             $auctionList = $xmlAuctions->getElementsByTagName("auction");
@@ -173,8 +210,33 @@ function buy($auctionid, $buyerid) {
                         && $expirydatetime > $currentdatetime
                         ) {
                             
-                        $auction->childNodes->item(12)->textContent = $buyerid;
-                        $auction->childNodes->item(13)->textContent = $auction->childNodes->item(7)->textContent;
+
+                        $foundPreviousBid = false; 
+                        
+                        $bidList = $auction->childNodes->item(12)->getElementsByTagName("bid");
+
+                        foreach ($bidList as $bid) {
+                            if ($buyerid == intval($bid->childNodes->item(0)->nodeValue)) {
+                                $foundPreviousBid = true;
+                                $bid->childNodes->item(1)->textContent = $auction->childNodes->item(7)->textContent;
+                            }
+                        }
+    
+                        if ($foundPreviousBid == false) {
+                            $newBid = $xmlAuctions->createElement("bid");
+                            $auction->childNodes->item(12)->appendChild($newBid);
+    
+                            $newBidID = $xmlAuctions->createElement("bidderid");
+                            $newBidIDValue = $xmlAuctions->createTextNode($buyerid);
+                            $newBidID->appendChild($newBidIDValue);
+    
+                            $newBidAmount = $xmlAuctions->createElement("lastbid");
+                            $newBidAmountValue = $xmlAuctions->createTextNode($auction->childNodes->item(7)->textContent);
+                            $newBidAmount->appendChild($newBidAmountValue);
+    
+                            $newBid->appendChild($newBidID);
+                            $newBid->appendChild($newBidAmount);
+                        }
 
                         $auction->childNodes->item(11)->textContent = "sold";
 

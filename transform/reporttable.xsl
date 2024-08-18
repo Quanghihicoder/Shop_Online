@@ -7,7 +7,8 @@
   <xsl:output  method="html" indent="yes" version="4.0" />   
   
   <xsl:template match="/">
-    <xsl:variable name="total" select="sum(auctions/auction[status='sold']/lastbid) * 3 div 100 + sum(auctions/auction[status='failed']/reserveprice) * 1 div 100"/>
+
+    <xsl:variable name="total" select="sum(auctions/auction[status='sold']/bids/bid/lastbid[not(. &lt; ../../bid/lastbid)]) * 3 div 100 + sum(auctions/auction[status='failed']/reserveprice) * 1 div 100"/>
 
     <xsl:choose>
         <xsl:when test="number($total) &gt; 0.00">
@@ -42,8 +43,15 @@
                         <td><xsl:value-of select="concat('$', reserveprice)"/></td>
                         <td><xsl:value-of select="concat('$', buyitnowprice)"/></td>
                         <td><xsl:value-of select="sellerid"/></td>
-                        <td><xsl:value-of select="bidderid"/></td>
-                        <td><xsl:value-of select="concat('$', lastbid)"/></td>
+
+                        <xsl:for-each select="bids/bid/lastbid">
+                            <xsl:sort select="." data-type="number" order="descending"/>
+                            <xsl:if test="position() = 1">
+                                <td><xsl:value-of select="../bidderid"/></td>
+                                <td><xsl:value-of select="concat('$', .)"/></td>
+                            </xsl:if>
+                        </xsl:for-each>
+
                         <td><xsl:value-of select="$start"/></td>
                         <td><xsl:value-of select="$end"/></td>
                         <td><xsl:value-of select="status"/></td>
@@ -52,8 +60,7 @@
             </table>
 
             <div class="table-total">
-                <span>These items have been removed from the list.</span>
-                <span>Interest Rate (3% sold price from each sold item and 1% reserved price from each failed item)</span>
+                <span>Interest Rate (3% sold price - last bid from each sold item and 1% reserved price from each failed item)</span>
                 <span>Total Revenue: <b>$<xsl:value-of select="$total"/></b></span>
             </div>  
         </xsl:when>

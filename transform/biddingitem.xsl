@@ -52,7 +52,12 @@
                     </tr>
                     <tr>
                         <th>Bid Price:</th>
-                        <td><xsl:value-of select="concat('$', lastbid)"/></td>
+                        <td>
+                            <xsl:for-each select="bids/bid/lastbid">
+                                <xsl:sort select="." data-type="number" order="descending"/>
+                                <xsl:if test="position() = 1"><xsl:value-of select="concat('$', .)"/></xsl:if>
+                            </xsl:for-each>
+                        </td>
                     </tr>
                     <tr>
                         <th>Status:</th>

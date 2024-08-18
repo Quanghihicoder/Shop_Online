@@ -27,11 +27,21 @@ function processAuction() {
             $status = $auction->childNodes->item(11)->nodeValue;
 
             $reserveprice = $auction->childNodes->item(6)->nodeValue;
-            
-            $lastbid = $auction->childNodes->item(13)->nodeValue;
 
-            if ($status == "in_progress" && $expirydatetime > $currentdatetime ) {
-                if (floatval($lastbid) >= floatval($reserveprice)) {
+            $bidList = $auction->childNodes->item(12)->getElementsByTagName("bid");
+
+            $highestbid = 0;
+
+            foreach ($bidList as $bid) {
+                $bidAmount =  floatval($bid->childNodes->item(1)->nodeValue);
+
+                if ($bidAmount > $highestbid) {
+                    $highestbid = $bidAmount;
+                }
+            }
+            
+            if ($status == "in_progress" && $expirydatetime < $currentdatetime ) {
+                if (floatval($highestbid) >= floatval($reserveprice)) {
                     $auction->childNodes->item(11)->textContent = "sold";
                 } else {
                     $auction->childNodes->item(11)->textContent = "failed";
@@ -59,7 +69,6 @@ function report() {
             
         $proc = new XSLTProcessor;
         $proc->importStyleSheet($xslDoc);
-
 
         $xmlAuctions = new DomDocument;
         $xmlAuctions->preserveWhiteSpace = FALSE;

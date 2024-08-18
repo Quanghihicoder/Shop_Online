@@ -86,6 +86,7 @@ const logOut = (event) => {
     xhr.send(null);
 }
 
+
 const submitForm = (event) => {
     event.preventDefault();
 
@@ -195,6 +196,7 @@ const submitForm = (event) => {
     };
     xhr.send(params);
 }
+
 
 // const interval = setInterval(function() {
 //     getUserInfo();

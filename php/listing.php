@@ -157,6 +157,7 @@ if (empty($errorArray)
 		$xmlAuctions->appendChild($auctions);
     } else {
         $xmlAuctions->preserveWhiteSpace = FALSE;
+        $xmlAuctions->formatOutput = true;
         $xmlAuctions->load($xmlfile);
     }
 
@@ -253,7 +254,6 @@ if (empty($errorArray)
     // create auction bids
     $bidsNode = $xmlAuctions->createElement('bids');
     $auction->appendChild($bidsNode);
-
     $bidNode = $xmlAuctions->createElement('bid');
     $bidsNode->appendChild($bidNode);
 

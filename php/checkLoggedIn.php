@@ -23,4 +23,5 @@ if (isset($_SESSION["user_id"])) {
 
 echo $xmlResponse->saveXML();
 
+exit(0)
 ?>

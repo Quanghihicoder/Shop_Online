@@ -6,8 +6,8 @@
 session_start(); 
 
 // Response to JavaScript in XML format
-// $xmlResponse = new DOMDocument;
-// $xmlResponse->formatOutput=true;
+$xmlResponse = new DOMDocument;
+$xmlResponse->formatOutput=true;
 
 // // // Check if the user logged in
 // if (isset($_SESSION["user_id"])) { 

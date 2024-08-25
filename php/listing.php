@@ -5,6 +5,8 @@ require("config.php");
 // An array to store all errors  
 $errorArray = array();
 
+session_start(); 
+
 // Response to JavaScript in XML format
 $xmlResponse = new DOMDocument;
 $xmlResponse->formatOutput = true;
@@ -206,7 +208,6 @@ if (empty($errorArray)
     
     $auctionID = $highestID;
     
-    session_start(); 
     $sellerID = $_SESSION["user_id"];
 
     $createTime = new DateTime();

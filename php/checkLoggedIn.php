@@ -22,5 +22,5 @@ session_start();
 // }
 
 // echo $xmlResponse->saveXML();
-echo isset($_SESSION["user_id"]);
+echo isset($_SESSION["user_id"]) ? "true" : "false";
 ?>

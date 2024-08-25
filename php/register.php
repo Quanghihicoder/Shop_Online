@@ -197,7 +197,7 @@ if (empty($errorArray) && isset($email) && isset($password) && isset($confirmpas
         $message = "Dear " . $firstname . ", welcome to use ShopOnline! Your customer id is " . $newID . " and the password is " . $password;
         $headers = 'From: registration@shoponline.com.au' . "\r\n";
 
-        mail($to, $subject, $message, $headers);
+        // mail($to, $subject, $message, $headers);
 
         // // start the session
         session_start(); 
